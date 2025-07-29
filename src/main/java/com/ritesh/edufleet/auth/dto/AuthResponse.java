@@ -1,4 +1,4 @@
-package com.ritesh.edufleet.dto;
+package com.ritesh.edufleet.auth.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,0 +1,52 @@
+16:57:15.870 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown -Commencing graceful shutdown. Waiting for active requests to complete
+16:57:15.935 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown -Graceful shutdown complete
+16:57:15.940 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean -Closing JPA EntityManagerFactory for persistence unit 'default'
+16:57:15.943 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource -HikariPool-1 - Shutdown initiated...
+16:57:15.965 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource -HikariPool-1 - Shutdown completed.
+16:57:20.903 [background-preinit] INFO  o.h.validator.internal.util.Version -HV000001: Hibernate Validator 8.0.2.Final
+16:57:21.013 [main] INFO  c.r.edufleet.EdufleetApplication -Starting EdufleetApplication using Java 17.0.12 with PID 5044 (D:\LEARNING\java\edufleet\target\classes started by ritsm in D:\LEARNING\java\edufleet)
+16:57:21.014 [main] INFO  c.r.edufleet.EdufleetApplication -No active profile set, falling back to 1 default profile: "default"
+16:57:22.554 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate -Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+16:57:22.714 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate -Finished Spring Data repository scanning in 127 ms. Found 2 JPA repository interfaces.
+16:57:23.694 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer -Tomcat initialized with port 7001 (http)
+16:57:23.713 [main] INFO  o.a.coyote.http11.Http11NioProtocol -Initializing ProtocolHandler ["http-nio-7001"]
+16:57:23.717 [main] INFO  o.a.catalina.core.StandardService -Starting service [Tomcat]
+16:57:23.717 [main] INFO  o.a.catalina.core.StandardEngine -Starting Servlet engine: [Apache Tomcat/10.1.42]
+16:57:23.809 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] -Initializing Spring embedded WebApplicationContext
+16:57:23.810 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext -Root WebApplicationContext: initialization completed in 2662 ms
+16:57:24.073 [main] INFO  o.h.jpa.internal.util.LogHelper -HHH000204: Processing PersistenceUnitInfo [name: default]
+16:57:24.152 [main] INFO  org.hibernate.Version -HHH000412: Hibernate ORM core version 6.6.18.Final
+16:57:24.209 [main] INFO  o.h.c.i.RegionFactoryInitiator -HHH000026: Second-level cache disabled
+16:57:24.683 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo -No LoadTimeWeaver setup: ignoring JPA class transformer
+16:57:24.719 [main] INFO  com.zaxxer.hikari.HikariDataSource -HikariPool-1 - Starting...
+16:57:24.924 [main] INFO  com.zaxxer.hikari.pool.HikariPool -HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@69ba72da
+16:57:24.926 [main] INFO  com.zaxxer.hikari.HikariDataSource -HikariPool-1 - Start completed.
+16:57:24.979 [main] WARN  org.hibernate.orm.deprecation -HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+16:57:25.006 [main] INFO  o.hibernate.orm.connections.pooling -HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 16.6
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+16:57:26.392 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator -HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+16:57:26.472 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean -Initialized JPA EntityManagerFactory for persistence unit 'default'
+16:57:27.059 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer -Global AuthenticationManager configured with UserDetailsService bean with name userServiceImpl
+16:57:27.151 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration -spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+16:57:28.023 [main] INFO  o.a.coyote.http11.Http11NioProtocol -Starting ProtocolHandler ["http-nio-7001"]
+16:57:28.062 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer -Tomcat started on port 7001 (http) with context path '/'
+16:57:28.077 [main] INFO  c.r.edufleet.EdufleetApplication -Started EdufleetApplication in 7.876 seconds (process running for 8.519)
+16:57:33.139 [http-nio-7001-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] -Initializing Spring DispatcherServlet 'dispatcherServlet'
+16:57:33.140 [http-nio-7001-exec-1] INFO  o.s.web.servlet.DispatcherServlet -Initializing Servlet 'dispatcherServlet'
+16:57:33.141 [http-nio-7001-exec-1] INFO  o.s.web.servlet.DispatcherServlet -Completed initialization in 1 ms
+16:57:33.206 [http-nio-7001-exec-1] WARN  c.r.edufleet.filter.JwtAuthFilter -Auth header 1::Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJyaXRlc2hAZXhhbXBsZS5jb20iLCJpYXQiOjE3NTM3ODY5ODMsImV4cCI6MTc1Mzg3MzM4M30.Y42dO00jSfxx1bdJh25bSoYZ1faklwri7R63bJ3sWfE
+16:57:33.259 [http-nio-7001-exec-1] WARN  c.r.edufleet.filter.JwtAuthFilter -Auth emailqqqqqqqqq::ritesh@example.com
+16:57:33.266 [http-nio-7001-exec-1] WARN  c.r.e.auth.service.UserServiceImpl -What email:::::::::::;ritesh@example.com
+16:57:33.465 [http-nio-7001-exec-1] DEBUG org.hibernate.SQL -select u1_0.id,u1_0.created_at,u1_0.email,u1_0.password,u1_0.role_id,u1_0.updated_at,u1_0.username from users u1_0 where u1_0.email=?
+16:57:33.512 [http-nio-7001-exec-1] DEBUG org.hibernate.SQL -select r1_0.id,r1_0.created_at,r1_0.is_active,r1_0.name,r1_0.updated_at from roles r1_0 where r1_0.id=?
+16:57:33.524 [http-nio-7001-exec-1] WARN  c.r.e.auth.service.UserServiceImpl -What is the role name?STUDENT
+16:57:33.528 [http-nio-7001-exec-1] WARN  c.r.edufleet.filter.JwtAuthFilter -Auth userDetails::ritesh@example.com
+16:57:33.536 [http-nio-7001-exec-1] INFO  c.r.edufleet.filter.LoggerFilter -Incoming request: [GET] /role/adMin from IP: 0:0:0:0:0:0:0:1
+16:57:33.594 [http-nio-7001-exec-1] ERROR c.r.edufleet.config.ExceptionHandler -error:::Access Denied
+16:57:33.659 [http-nio-7001-exec-1] INFO  c.r.edufleet.filter.LoggerFilter -Response status for [GET /role/adMin]: 500

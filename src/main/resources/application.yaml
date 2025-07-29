@@ -5,9 +5,9 @@ spring:
   application:
     name: edufleet
   datasource:
-    url: ${DB_URL}
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
+    url: jdbc:postgresql://localhost:5432/db_edufleet
+    username: postgres
+    password: 7299
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:

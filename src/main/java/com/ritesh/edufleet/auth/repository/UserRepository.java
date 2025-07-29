@@ -1,6 +1,6 @@
-package com.ritesh.edufleet.repository;
+package com.ritesh.edufleet.auth.repository;
 
-import com.ritesh.edufleet.entity.User;
+import com.ritesh.edufleet.auth.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

@@ -1,29 +1,31 @@
 package com.ritesh.edufleet.config;
 
-import com.ritesh.edufleet.service.UserServiceImpl;
+import com.ritesh.edufleet.auth.service.UserServiceImpl;
+import com.ritesh.edufleet.filter.JwtAuthFilter;
+import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
-//@EnableWebSecurity
+@EnableWebSecurity
+@EnableMethodSecurity
+@AllArgsConstructor
 public class SecurityConfig {
-    private final AuthenticationEntryPoint authenticationEntryPoint;
+    private final RestAuthenticationEntryPoint authenticationEntryPoint;
     private final RestAccessDeniedHandler restAccessDeniedHandler;
     private final UserServiceImpl userService;
+    private final JwtAuthFilter jwtAuthFilter;
 
-    public SecurityConfig(AuthenticationEntryPoint authenticationEntryPoint, RestAccessDeniedHandler restAccessDeniedHandler, UserServiceImpl userService) {
-        this.authenticationEntryPoint = authenticationEntryPoint;
-        this.restAccessDeniedHandler = restAccessDeniedHandler;
-        this.userService = userService;
-    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -47,6 +49,7 @@ public class SecurityConfig {
                 .userDetailsService(userService)
                 .exceptionHandling(ex -> ex.accessDeniedHandler(restAccessDeniedHandler)
                         .authenticationEntryPoint(authenticationEntryPoint))
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
 }

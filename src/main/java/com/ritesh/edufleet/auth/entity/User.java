@@ -1,9 +1,9 @@
-package com.ritesh.edufleet.entity;
+package com.ritesh.edufleet.auth.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ritesh.edufleet.model.BaseEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import com.ritesh.edufleet.role.entity.Role;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,7 +21,14 @@ public class User extends BaseEntity {
     private String email;
 
     @Column(nullable = false)
+    @JsonIgnore
     private String password;
 
-    private String roles;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(
+            name = "role_id",
+            nullable = false,
+            foreignKey = @ForeignKey(name = "fk_user_role")
+    )
+    private Role role;
 }

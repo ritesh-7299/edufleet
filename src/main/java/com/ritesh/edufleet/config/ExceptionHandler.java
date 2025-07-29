@@ -74,6 +74,12 @@ public class ExceptionHandler {
     @org.springframework.web.bind.annotation.ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> internalServerError(Exception ex, HttpServletRequest request) {
         log.error("error:::" + ex.getMessage());
+
+        if ("Access Denied".equalsIgnoreCase(ex.getMessage())) {
+            ErrorResponse err = new ErrorResponse("Access Denied", request.getRequestURI(), HttpStatus.FORBIDDEN.value());
+            return new ResponseEntity<>(err, HttpStatus.FORBIDDEN);
+        }
+
         ErrorResponse err = new ErrorResponse("Something went wrong", request.getRequestURI(), HttpStatus.INTERNAL_SERVER_ERROR.value());
         return new ResponseEntity<>(err, HttpStatus.INTERNAL_SERVER_ERROR);
     }
