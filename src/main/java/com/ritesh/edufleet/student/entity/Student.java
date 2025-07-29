@@ -15,4 +15,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Student extends BaseEntity {
     private String name;
+
 }
