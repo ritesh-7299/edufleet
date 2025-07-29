@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 @RestControllerAdvice
 @Slf4j
@@ -24,6 +25,19 @@ public class ExceptionHandler {
     public ResponseEntity<ErrorResponse> notFound(ResourceNotFoundException ex, HttpServletRequest request) {
         ErrorResponse err = new ErrorResponse(ex.getMessage(), request.getRequestURI(), HttpStatus.NOT_FOUND.value());
         log.error(err.toString());
+        return new ResponseEntity<>(err, HttpStatus.NOT_FOUND);
+    }
+
+    /**
+     * Handled not found exceptions
+     *
+     * @param ex
+     * @param request
+     * @return
+     */
+    @org.springframework.web.bind.annotation.ExceptionHandler(NoResourceFoundException.class)
+    public ResponseEntity<ErrorResponse> noResourceFound(NoResourceFoundException ex, HttpServletRequest request) {
+        ErrorResponse err = new ErrorResponse("Not found", request.getRequestURI(), HttpStatus.NOT_FOUND.value());
         return new ResponseEntity<>(err, HttpStatus.NOT_FOUND);
     }
 
@@ -74,8 +88,8 @@ public class ExceptionHandler {
     @org.springframework.web.bind.annotation.ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> internalServerError(Exception ex, HttpServletRequest request) {
         log.error("error:::" + ex.getMessage());
-
-        if ("Access Denied".equalsIgnoreCase(ex.getMessage())) {
+        log.error("Type of errror" + ex.getClass().toString());
+        if ("Access Denied" .equalsIgnoreCase(ex.getMessage())) {
             ErrorResponse err = new ErrorResponse("Access Denied", request.getRequestURI(), HttpStatus.FORBIDDEN.value());
             return new ResponseEntity<>(err, HttpStatus.FORBIDDEN);
         }

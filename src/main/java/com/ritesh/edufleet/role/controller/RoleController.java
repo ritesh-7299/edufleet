@@ -1,4 +1,4 @@
-package com.ritesh.edufleet.role;
+package com.ritesh.edufleet.role.controller;
 
 import com.ritesh.edufleet.role.dto.RoleCreateRequestDto;
 import com.ritesh.edufleet.role.dto.UserListResponseDto;
@@ -15,6 +15,7 @@ import java.util.List;
 @RequestMapping("/role")
 @RequiredArgsConstructor
 @Slf4j
+@PreAuthorize("hasAuthority('ADMIN')")
 public class RoleController {
     private final RoleService roleService;
 
@@ -36,8 +37,8 @@ public class RoleController {
      * @param name
      * @return
      */
+//    @SkipApiResponseWrapping
     @GetMapping("/{name}")
-    @PreAuthorize("hasAuthority('ADMIN')")
     public List<UserListResponseDto> getUsersByRole(@PathVariable String name) {
         return roleService.getUsersByRole(name)
                 .stream()
