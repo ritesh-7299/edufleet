@@ -8,6 +8,7 @@ import com.ritesh.edufleet.exception.BadRequestException;
 import com.ritesh.edufleet.role.dto.UserListResponseDto;
 import com.ritesh.edufleet.role.entity.Role;
 import com.ritesh.edufleet.role.service.RoleService;
+import com.ritesh.edufleet.student.dto.CreateStudentDto;
 import com.ritesh.edufleet.system.JwtUtils;
 import com.ritesh.edufleet.system.PaginationDto;
 import lombok.RequiredArgsConstructor;
@@ -91,7 +92,9 @@ public class AuthService {
      * @return
      */
     private Optional<User> getUserByUsernameOrEmail(String username, String email) {
+
         Optional<User> user = userRepository.findByUsername(username);
+        log.warn("User before::::: {}", user);
         if (user.isEmpty()) {
             user = userRepository.findByEmail(email);
         }
@@ -110,4 +113,32 @@ public class AuthService {
         return userRepository.findAll(pageable).map(UserListResponseDto::new);
     }
 
+    /**
+     * Function to create a new student login in the system
+     *
+     * @param createStudentDto
+     * @return boolean
+     */
+    public User createStudent(CreateStudentDto createStudentDto, String password) {
+        Optional<User> userByUsernameOrEmail = getUserByUsernameOrEmail(
+                createStudentDto.getName(),
+                createStudentDto.getEmail()
+        );
+
+        if (userByUsernameOrEmail.isPresent()) {
+            throw new BadRequestException("User already exist");
+        }
+
+        User user = new User();
+        user.setUsername(createStudentDto.getName());
+        user.setEmail(createStudentDto.getEmail());
+        user.setPassword(passwordEncoder.encode(password));
+        Role role = roleService.getRoleByName("student");
+        if (role == null) {
+            throw new BadRequestException("No role found");
+        }
+        user.setRole(role);
+        userRepository.save(user);
+        return user;
+    }
 }

@@ -2,6 +2,7 @@ package com.ritesh.edufleet.role.controller;
 
 import com.ritesh.edufleet.role.dto.RoleCreateRequestDto;
 import com.ritesh.edufleet.role.dto.UserListResponseDto;
+import com.ritesh.edufleet.role.entity.Role;
 import com.ritesh.edufleet.role.service.RoleService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -28,8 +29,18 @@ public class RoleController {
     @PostMapping
     public String create(@Valid @RequestBody RoleCreateRequestDto dto) {
         return roleService.create(dto);
-
     }
+
+    /**
+     * Api to get listing of roles
+     *
+     * @return
+     */
+    @GetMapping
+    public List<Role> getAll() {
+        return roleService.getAll();
+    }
+
 
     /**
      * Api to get users list for give role

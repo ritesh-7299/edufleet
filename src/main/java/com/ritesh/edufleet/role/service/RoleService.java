@@ -30,6 +30,22 @@ public class RoleService {
     }
 
     /**
+     * Function to get role by name
+     *
+     * @param name
+     * @return
+     */
+    public Role getRoleByName(String name) {
+        UserRoleEnum userRole;
+        try {
+            userRole = UserRoleEnum.valueOf(name.toUpperCase().trim());
+        } catch (IllegalArgumentException e) {
+            throw new BadRequestException("Invalid role found");
+        }
+        return roleRepository.findByName(userRole);
+    }
+
+    /**
      * Function to create new role
      *
      * @param dto
@@ -74,6 +90,15 @@ public class RoleService {
         Role role = roleRepository.findByName(uRole);
         log.warn("What role did i fetch?" + role.getName());
         return role.getUsers();
+    }
+
+    /**
+     * Function to get listing of all roles
+     *
+     * @return
+     */
+    public List<Role> getAll() {
+        return roleRepository.findAll();
     }
 
 }

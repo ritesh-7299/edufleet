@@ -22,7 +22,7 @@ public class Role extends BaseEntity {
     private UserRoleEnum name;
 
     @Column(name = "is_active", columnDefinition = "BOOLEAN DEFAULT FALSE")
-    private boolean isActive = false;
+    private boolean isActive = true;
 
     @OneToMany(mappedBy = "role", fetch = FetchType.LAZY)
     @JsonIgnore

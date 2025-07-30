@@ -6,8 +6,8 @@ spring:
     name: edufleet
   datasource:
     url: jdbc:postgresql://localhost:5432/db_edufleet
-    username: postgres
-    password: 7299
+    username: root
+    password: root
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
@@ -16,13 +16,23 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
+  mail:
+    host: sandbox.smtp.mailtrap.io
+    port: 2525
+    username: 9df3ea609f6e35
+    password: 3695aebfe83d05
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
 springdoc:
   api-docs:
     path: /v3/api-docs
   swagger-ui:
     url: /v3/api-docs
 
-    
 logging:
   level:
     org.hibernate.SQL: DEBUG
