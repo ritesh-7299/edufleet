@@ -13,24 +13,7 @@ import java.io.IOException;
 
 @Component
 @Slf4j
-//public class RestAccessDeniedHandler implements AccessDeniedHandler {
-//    @Override
-//    public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException {
-//        if (response.isCommitted()) {
-//            log.warn("Response already committed. Cannot handle AccessDeniedException.");
-//            return;
-//        }
-//        response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-//        response.setContentType("application/json");
-//        response.getWriter().write(new ObjectMapper().writeValueAsString(
-//                new ErrorResponse("Access Denied", request.getRequestURI(), 403)
-//        ));
-//
-//        response.getWriter().flush();
-//    }
-//}
 public class RestAccessDeniedHandler implements AccessDeniedHandler {
-
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     @Override

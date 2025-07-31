@@ -50,7 +50,7 @@ public class SecurityConfig {
                                 )
                                 .permitAll()
                                 .anyRequest()
-                                .permitAll()
+                                .authenticated()
 
                 )
                 .userDetailsService(userService)

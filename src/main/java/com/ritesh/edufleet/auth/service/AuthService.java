@@ -37,10 +37,7 @@ public class AuthService {
 
 
     /**
-     * Function to create an user account in system
-     *
-     * @param signupRequest
-     * @return
+     * Function to create a user account in system
      */
     public String signup(SignupRequest signupRequest) {
         Role role = roleService.getRoleById((signupRequest.getRoleId()));
@@ -63,10 +60,7 @@ public class AuthService {
     }
 
     /**
-     * Function to login a user
-     *
-     * @param loginDto
-     * @return
+     * Function to log in a user
      */
     public String login(LoginDto loginDto) {
         try {
@@ -86,15 +80,9 @@ public class AuthService {
 
     /**
      * Function to get the existing user by username or email
-     *
-     * @param username
-     * @param email
-     * @return
      */
     private Optional<User> getUserByUsernameOrEmail(String username, String email) {
-
         Optional<User> user = userRepository.findByUsername(username);
-        log.warn("User before::::: {}", user);
         if (user.isEmpty()) {
             user = userRepository.findByEmail(email);
         }
@@ -103,9 +91,6 @@ public class AuthService {
 
     /**
      * Function to get users listing pagination wise
-     *
-     * @param paginationDto
-     * @return
      */
     public Page<UserListResponseDto> getUsers(PaginationDto paginationDto) {
         Pageable pageable = PageRequest.of(paginationDto.getPage(), paginationDto.getSize());
@@ -116,7 +101,6 @@ public class AuthService {
     /**
      * Function to create a new student login in the system
      *
-     * @param createStudentDto
      * @return boolean
      */
     public User createStudent(CreateStudentDto createStudentDto, String password) {
