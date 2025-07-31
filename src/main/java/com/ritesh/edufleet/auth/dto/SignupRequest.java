@@ -1,6 +1,5 @@
 package com.ritesh.edufleet.auth.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -21,6 +20,5 @@ public class SignupRequest {
     private String password;
 
     @NotNull
-    @JsonProperty("role_id")
     private long roleId;
 }

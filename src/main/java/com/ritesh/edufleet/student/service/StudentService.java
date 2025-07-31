@@ -2,11 +2,14 @@ package com.ritesh.edufleet.student.service;
 
 import com.ritesh.edufleet.auth.entity.User;
 import com.ritesh.edufleet.auth.service.AuthService;
+import com.ritesh.edufleet.department.entity.Department;
+import com.ritesh.edufleet.department.service.DepartmentService;
 import com.ritesh.edufleet.exception.ResourceNotFoundException;
 import com.ritesh.edufleet.student.dto.CreateStudentDto;
 import com.ritesh.edufleet.student.entity.Student;
 import com.ritesh.edufleet.student.repository.StudentRepository;
 import com.ritesh.edufleet.student.response.StudentListResponseDto;
+import com.ritesh.edufleet.system.DateParser;
 import com.ritesh.edufleet.system.PaginationDto;
 import com.ritesh.edufleet.system.PasswordGenerator;
 import com.ritesh.edufleet.system.service.EmailService;
@@ -18,6 +21,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
+
 @Slf4j
 @RequiredArgsConstructor
 @Service
@@ -26,6 +31,8 @@ public class StudentService {
     private final AuthService authService;
     private final EmailService emailService;
     private final PasswordGenerator passwordGenerator;
+    private final DepartmentService departmentService;
+    private final DateParser dateParser;
 
     /**
      * Function to create a student into database
@@ -34,8 +41,16 @@ public class StudentService {
      */
     @Transactional
     public String create(CreateStudentDto createStudentDto) {
+        Date birthDate = dateParser.parseDate(createStudentDto.getBirthDate());
+        Department department = departmentService.getDepartmentById(createStudentDto.getDepartmentId()).orElseThrow(
+                () -> new ResourceNotFoundException("Department not found")
+        );
         Student student = new Student();
         student.setName(createStudentDto.getName());
+        student.setBirthDate(birthDate);
+        student.setFirstName(createStudentDto.getFirstName());
+        student.setLastName(createStudentDto.getLastName());
+        student.setDepartmentId(department);
         String password = passwordGenerator.generatePassword(8);
         User user = authService.createStudent(createStudentDto, password);
         if (user != null) {

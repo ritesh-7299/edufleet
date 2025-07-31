@@ -4,16 +4,42 @@ import com.ritesh.edufleet.exception.BadRequestException;
 import com.ritesh.edufleet.exception.ResourceNotFoundException;
 import com.ritesh.edufleet.system.ErrorResponse;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
+
+import java.util.Arrays;
 
 @RestControllerAdvice
 @Slf4j
 public class ExceptionHandler {
+
+    @org.springframework.web.bind.annotation.ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<ErrorResponse> handleUnreadable(HttpMessageNotReadableException ex, HandlerMethod handlerMethod, HttpServletRequest request) {
+        boolean shouldValidate = Arrays.stream(handlerMethod.getMethodParameters())
+                .anyMatch(param ->
+                        param.hasParameterAnnotation(Valid.class) &&
+                                param.hasParameterAnnotation(RequestBody.class)
+                );
+
+        if (shouldValidate) {
+            log.error("Error {}", ex.getMessage());
+            ErrorResponse err = new ErrorResponse("Validation failed: Request body missing or malformed.", request.getRequestURI(), HttpStatus.NOT_FOUND.value());
+            return new ResponseEntity<>(err, HttpStatus.NOT_FOUND);
+        }
+
+        // For other cases, maybe rethrow or handle differently
+        ErrorResponse err = new ErrorResponse("Unexpected request body error.", request.getRequestURI(), HttpStatus.INTERNAL_SERVER_ERROR.value());
+        return new ResponseEntity<>(err, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
     /**
      * Handles not found exception
      *
@@ -89,7 +115,7 @@ public class ExceptionHandler {
     public ResponseEntity<ErrorResponse> internalServerError(Exception ex, HttpServletRequest request) {
         log.error("error:::" + ex.getMessage());
         log.error("Type of errror" + ex.getClass().toString());
-        if ("Access Denied" .equalsIgnoreCase(ex.getMessage())) {
+        if ("Access Denied".equalsIgnoreCase(ex.getMessage())) {
             ErrorResponse err = new ErrorResponse("Access Denied", request.getRequestURI(), HttpStatus.FORBIDDEN.value());
             return new ResponseEntity<>(err, HttpStatus.FORBIDDEN);
         }
