@@ -1,0 +1,10 @@
+version: "3.8"
+services:
+  app:
+    image: edufleet-app
+    ports:
+      - "7002:7002"
+    extra_hosts:
+      "host.docker.internal": "172.17.0.1"
+    env_file:
+      - .env
